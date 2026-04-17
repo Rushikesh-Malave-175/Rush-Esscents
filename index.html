@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rush Esscents</title>
+
+<!-- Clarity (replace ID) -->
+<script>
+(function(c,l,a,r,i,t,y){
+ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+ t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "YOUR_PROJECT_ID");
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,Arial;}
+body{background:#0f172a;color:#e2e8f0;}
+header{padding:20px;text-align:center;background:#020617;font-size:24px;font-weight:bold;letter-spacing:1px;}
+.container{display:flex;flex-wrap:wrap;justify-content:center;padding:20px;gap:20px;}
+.card{background:#020617;border-radius:12px;padding:15px;width:220px;box-shadow:0 10px 25px rgba(0,0,0,0.3);transition:0.2s;}
+.card:hover{transform:translateY(-5px);}
+.price{margin:10px 0;font-size:18px;color:#f472b6;}
+.desc{font-size:13px;color:#94a3b8;margin-bottom:8px;}
+button{padding:8px 12px;border:none;border-radius:8px;background:#ec4899;color:white;cursor:pointer;}
+button:hover{opacity:0.9;}
+#cart{position:fixed;right:20px;top:80px;background:#020617;padding:15px;border-radius:12px;width:250px;box-shadow:0 10px 25px rgba(0,0,0,0.4);}
+#cart ul{list-style:none;margin:10px 0;max-height:150px;overflow:auto;font-size:14px;}
+#payment{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#020617;padding:20px;border-radius:12px;width:300px;box-shadow:0 10px 30px rgba(0,0,0,0.5);text-align:center;}
+input{width:100%;padding:8px;border-radius:6px;border:none;margin:10px 0;}
+.footer{position:fixed;bottom:10px;width:100%;text-align:center;font-size:12px;color:#94a3b8;}
+</style>
+</head>
+
+<body>
+<header>Rush Esscents</header>
+
+<div class="container">
+
+<div class="card">
+<h3>Midnight Oud</h3>
+<p class="desc">Rich woody & smoky scent</p>
+<p class="price">₹3500</p>
+<button onclick="addToCart('Midnight Oud',3500)">Add</button>
+</div>
+
+<div class="card">
+<h3>Rose Essence</h3>
+<p class="desc">Fresh floral fragrance</p>
+<p class="price">₹2200</p>
+<button onclick="addToCart('Rose Essence',2200)">Add</button>
+</div>
+
+<div class="card">
+<h3>Ocean Breeze</h3>
+<p class="desc">Cool aquatic freshness</p>
+<p class="price">₹2800</p>
+<button onclick="addToCart('Ocean Breeze',2800)">Add</button>
+</div>
+
+<div class="card">
+<h3>Vanilla Musk</h3>
+<p class="desc">Warm sweet & musky</p>
+<p class="price">₹2600</p>
+<button onclick="addToCart('Vanilla Musk',2600)">Add</button>
+</div>
+
+</div>
+
+<div id="cart">
+<h3>Cart</h3>
+<ul id="items"></ul>
+<p>Total: ₹<span id="total">0</span></p>
+<button onclick="checkout()">Checkout</button>
+</div>
+
+<div id="payment">
+<h3>Payment</h3>
+<p>Amount: ₹<span id="pay"></span></p>
+<input id="card" placeholder="Card number">
+<button onclick="payNow()">Pay</button>
+<button onclick="closePay()">Cancel</button>
+<p style="font-size:12px;margin-top:10px;">1111 → success | 2222 → fail</p>
+</div>
+
+<div class="footer">Rush Esscents • Placeholder site</div>
+
+<script>
+let total=0;
+let cart=[];
+
+function addToCart(name,price){
+ cart.push({name,price});
+ total+=price;
+ document.getElementById('items').innerHTML+=`<li>${name} - ₹${price}</li>`;
+ document.getElementById('total').innerText=total;
+}
+
+function checkout(){
+ if(cart.length===0){alert('Cart empty');return;}
+ document.getElementById('pay').innerText=total;
+ document.getElementById('payment').style.display='block';
+}
+
+function closePay(){
+ document.getElementById('payment').style.display='none';
+}
+
+function payNow(){
+ let val=document.getElementById('card').value.trim();
+ if(val==='1111'){
+ alert('Success');
+ cart=[];total=0;
+ document.getElementById('items').innerHTML='';
+ document.getElementById('total').innerText='0';
+ closePay();
+ }else if(val==='2222'){
+ alert('Failed');
+ }else{
+ alert('Invalid');
+ }
+}
+</script>
+
+</body>
+</html>
